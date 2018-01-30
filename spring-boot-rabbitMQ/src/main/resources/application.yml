@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: spring-boot-rabbitMQ
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: xxx
+    #publisher-confirms: true
+    virtual-host: /
+    listener:
+      # 手动ack
+      acknowledge-mode: MANUAL
+      # 最小的消费者数量
+      concurrency: 10
+      # 最大的消费者数量
+      #max-concurrency: 10
+      # 指定一个请求能处理多少个消息
+      #prefetch: 1
+
+
+config: abc
