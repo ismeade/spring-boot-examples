@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,6 +39,22 @@ public class Application {
     @RequestMapping("/del")
     public String del() {
         redisTemplate.delete("a");
+        return "ok";
+    }
+
+    @RequestMapping("/list-init")
+    public String listInit() {
+        redisTemplate.opsForList().rightPushAll("list", "1", "2", "3", "4", "5", "6", "7", "8");
+        return "ok";
+    }
+
+    @RequestMapping("/list-lpop")
+    public String listLpop() {
+        Executor executor = Executors.newFixedThreadPool(4);
+        for (int i = 0; i < 10; i++) {
+            executor.execute(() -> System.out.println(redisTemplate.opsForList().leftPop("list")));
+        }
+        //return redisTemplate.opsForList().leftPop("list");
         return "ok";
     }
 
