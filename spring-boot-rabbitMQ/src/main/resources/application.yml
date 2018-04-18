@@ -2,10 +2,10 @@ spring:
   application:
     name: spring-boot-rabbitMQ
   rabbitmq:
-    host: 127.0.0.1
+    host: www.ismeade.com
     port: 5672
-    username: admin
-    password: xxx
+    username: liyang
+    password: rabbitmq123
     #publisher-confirms: true
     virtual-host: /
     listener:
@@ -17,6 +17,9 @@ spring:
       #max-concurrency: 10
       # 指定一个请求能处理多少个消息
       #prefetch: 1
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+#    publisher-confirms: true
 
-
-config: abc

@@ -1,11 +1,14 @@
 package com.ade.exp.amqp;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import com.sun.deploy.association.utility.AppConstants;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by liyang on 17-11-9.
@@ -47,6 +50,27 @@ public class TopicRabbitConfig {
                 .bind(queueB)
                 .to(exchange)
                 .with("topic.b");
+    }
+
+    public static final String REPLY_QUEUE_NAME = "reply_queue";
+    public static final String REPLY_EXCHANGE_NAME = "reply_exchange";
+    public static final String REPLY_MESSAGE_KEY = "reply_key";
+
+    @Bean(name = "springReplyMessageQueue")
+    Queue createReplyQueue() {
+        return new Queue(REPLY_QUEUE_NAME, true, false, false);
+    }
+
+    @Bean(name = "springReplyMessageExchange")
+    public Exchange createReplyExchange() {
+        return new DirectExchange(REPLY_EXCHANGE_NAME, true, false);
+    }
+
+    @Bean(name = "springReplyMessageBinding")
+    public Binding createReplyMessageBinding() {
+        Map<String, Object> arguments = new HashMap<>();
+        return new Binding(REPLY_QUEUE_NAME, Binding.DestinationType.QUEUE,
+                REPLY_EXCHANGE_NAME, REPLY_MESSAGE_KEY, arguments);
     }
 
 }
