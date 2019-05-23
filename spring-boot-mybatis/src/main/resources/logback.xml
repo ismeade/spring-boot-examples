@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+
+    <property name="log.path" value="./logs/"/>
+
+    <appender name="info"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}info.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                ${log.path}info.%d{yyyy-MM-dd}.log.zip
+            </FileNamePattern>
+            <!-- 单个日志文件最多 100MB, 60天的日志周期，最大不能超过20GB -->
+            <!--<maxFileSize>100MB</maxFileSize>-->
+            <!--<maxHistory>60</maxHistory>-->
+            <!--<totalSizeCap>20GB</totalSizeCap>-->
+        </rollingPolicy>
+        <!-- 布局 -->
+        <encoder>
+            <!--格式化输出：%d表示日期，%t=%thread 线程名 %r 线程号 %p=%level 级别，%c 类，%m 内容，%n 换行符-->
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%t:%r] [%p] - [%c] %m%n
+            </pattern>
+        </encoder>
+        <append>false</append>
+    </appender>
+
+    <appender name="error"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                ${log.path}error.%d{yyyy-MM-dd}.log.zip
+            </FileNamePattern>
+            <!-- 单个日志文件最多 100MB, 60天的日志周期，最大不能超过20GB -->
+            <!--<maxFileSize>100MB</maxFileSize>-->
+            <!--<maxHistory>60</maxHistory>-->
+            <!--<totalSizeCap>20GB</totalSizeCap>-->
+        </rollingPolicy>
+        <!-- 布局 -->
+        <encoder>
+            <!--格式化输出：%d表示日期，%t=%thread 线程名 %r 线程号 %p=%level 级别，%c 类，%m 内容，%n 换行符-->
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%t:%r] [%p] - [%c] %m%n
+            </pattern>
+        </encoder>
+        <append>false</append>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="error"/>
+        <appender-ref ref="info"/>
+    </root>
+</configuration>
