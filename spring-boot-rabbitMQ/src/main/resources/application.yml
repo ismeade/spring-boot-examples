@@ -2,10 +2,10 @@ spring:
   application:
     name: spring-boot-rabbitMQ
   rabbitmq:
-    host: www.ismeade.com
+    host: 127.0.0.1
     port: 5672
-    username: liyang
-    password: rabbitmq123
+    username: admin
+    password: admin123
     #publisher-confirms: true
     virtual-host: /
     listener:

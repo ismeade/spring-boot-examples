@@ -1,9 +1,6 @@
 package com.ade.exp.amqp;
 
-import com.sun.deploy.association.utility.AppConstants;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
